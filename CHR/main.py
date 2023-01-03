@@ -72,16 +72,15 @@ def main_ray():
     global args, best_prec1, use_gpu
     args = parser.parse_args()
 
-    args.data='/DATA/disk1/mcj/dataset/'
+    # args.data='/DATA/disk1/mcj/dataset/'
     args.resume = './CHR/models-/checkpoint.pth.tar'
 
-
-
     use_gpu = torch.cuda.is_available()
+    print("using gpu: {}".format(use_gpu))
 
     # define dataset
     train_dataset = XrayClassification(args.data, 'train')
-    val_dataset = XrayClassification(args.data, 'test_new')
+    val_dataset = XrayClassification(args.data, 'test')
     num_classes = 5
 
     # load model
@@ -103,7 +102,9 @@ def main_ray():
     state['epoch_step']={20}
 
     engine = MultiLabelMAPEngine(state)
+    # print(torch.cuda.memory_summary(device=None, abbreviated=False))
     engine.learning(model, criterion, train_dataset, val_dataset, optimizer)
+
 
 
 if __name__ == '__main__':

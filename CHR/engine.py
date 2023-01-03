@@ -14,7 +14,6 @@ import numpy as np
 
 from CHR.util import AveragePrecisionMeter, Warp
 
-
 class Engine(object):
     def __init__(self, state={}):
         self.state = state
@@ -24,7 +23,7 @@ class Engine(object):
         if self._state('train_image_size') is None:
             self.state['train_image_size'] = 256
         if self._state('test_image_size') is None:
-            self.state['test_image_size'] =224
+            self.state['test_image_size'] = 224
 
         if self._state('batch_size') is None:
             self.state['batch_size'] = 64
@@ -32,7 +31,7 @@ class Engine(object):
         if self._state('train_workers') is None:
             self.state['train_workers'] = 16
         if self._state('test_workers') is None:
-            self.state['test_workers'] =4
+            self.state['test_workers'] = 4
 
         if self._state('multi_gpu') is None:
             self.state['multi_gpu'] = False
@@ -89,7 +88,7 @@ class Engine(object):
 
         # record loss
         self.state['loss_batch'] = self.state['loss'].data
-        self.state['meter_loss'].add(self.state['loss_batch'])
+        self.state['meter_loss'].add(self.state['loss_batch'].cpu())
 
         if display and self.state['print_freq'] != 0 and self.state['iteration'] % self.state['print_freq'] == 0:
             loss = self.state['meter_loss'].value()[0]
@@ -274,7 +273,7 @@ class Engine(object):
             self.on_start_batch(True, model, criterion, data_loader, optimizer)
 
             if self.state['use_gpu']:
-                self.state['target'] = self.state['target'].cuda(async=True)
+                self.state['target'] = self.state['target'].cuda(non_blocking=True)
 
             self.on_forward(True, model, criterion, data_loader, optimizer)
 
@@ -310,7 +309,7 @@ class Engine(object):
             self.on_start_batch(False, model, criterion, data_loader)
 
             if self.state['use_gpu']:
-                self.state['target'] = self.state['target'].cuda(async=True)
+                self.state['target'] = self.state['target'].cuda(non_blocking=True)
 
             self.on_forward(False, model, criterion, data_loader)
 
@@ -495,12 +494,12 @@ class MultiLabelMAPEngine(Engine):
                 # print(model.module.spatial_pooling)
                 #print(self.state['epoch'], loss.cpu().numpy()[0], map)
                 print('Epoch: [{0}]\t'
-                      'Loss {loss:.4f}\t'
-                      'mAP {map:.3f}'.format(self.state['epoch'], loss=loss.cpu().numpy()[0], map=map))
+                    'Loss {loss:.4f}\t'
+                    'mAP {map:.3f}'.format(self.state['epoch'], loss=loss.cpu().numpy().reshape(1)[0], map=map))
             else:
                 #print(self.state['ap_meter'].value())
 
-                print('Test: \t Loss {loss:.4f}\t  mAP {map:.3f}'.format(loss=loss.cpu().numpy()[0], map=map))
+                print('Test: \t Loss {loss:.4f}\t  mAP {map:.3f}'.format(loss=loss.cpu().numpy().reshape(1)[0], map=map))
 
         return map
 

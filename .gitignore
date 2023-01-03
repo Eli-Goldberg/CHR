@@ -1,0 +1,9 @@
+.venv/
+.vscode
+CHR/__pycache__
+CHR/**/*.png
+CHR/**/*.pyc
+dataset/
+Annotation
+dataset/downloaded
+downloaded/

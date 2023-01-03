@@ -85,7 +85,7 @@ class XrayClassification(data.Dataset):
 
 
         # define path of csv file
-        path_csv = os.path.join(self.root, 'ImageSet','train_test_10-5')
+        path_csv = os.path.join(self.root, 'ImageSet','1')
         # define filename of csv file
         file_csv = os.path.join(path_csv,  set + '.csv')
 

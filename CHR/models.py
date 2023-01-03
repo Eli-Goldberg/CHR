@@ -3,9 +3,6 @@ import torchvision.models as models
 import torch.nn.functional as F
 import torch
 
-
-
-
 class ResNetCHR(nn.Module):
 
     def __init__(self, model, num_classes, dense=True):
