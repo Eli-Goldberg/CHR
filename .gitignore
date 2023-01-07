@@ -3,7 +3,10 @@
 CHR/__pycache__
 CHR/**/*.png
 CHR/**/*.pyc
+scripts/*.pyc
+scripts/__pycache__
 dataset/
 Annotation
 dataset/downloaded
 downloaded/
+log
