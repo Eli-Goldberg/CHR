@@ -73,7 +73,7 @@ def main_ray():
     args = parser.parse_args()
 
     # args.data='/DATA/disk1/mcj/dataset/'
-    args.resume = './CHR/models-/checkpoint.pth.tar'
+    # args.resume = './CHR/models-/checkpoint.pth.tar'
 
     use_gpu = torch.cuda.is_available()
     print("using gpu: {}".format(use_gpu))

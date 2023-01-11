@@ -2,6 +2,7 @@ import os
 import shutil
 import time
 
+import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 import torch.nn.parallel
@@ -10,7 +11,6 @@ import torch.utils.data
 import torchnet as tnt
 import torchvision.transforms as transforms
 from tqdm import tqdm
-import numpy as np
 
 from CHR.util import AveragePrecisionMeter, Warp
 
