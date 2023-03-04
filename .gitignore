@@ -1,6 +1,6 @@
 .venv/
 .vscode
-CHR/__pycache__
+*/__pycache__
 CHR/**/*.png
 CHR/**/*.pyc
 scripts/*.pyc
@@ -11,3 +11,4 @@ dataset/downloaded
 downloaded/
 log
 CHR/models-*
+*.csv
